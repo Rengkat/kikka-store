@@ -1,0 +1,63 @@
+.swiper-slide::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.288);
+  inset: 0;
+}
+
+.first {
+  background-image: url("https://images.pexels.com/photos/447592/pexels-photo-447592.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.office {
+  position: relative;
+  background-image: url("https://images.pexels.com/photos/273671/pexels-photo-273671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.office::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(0, 38, 255, 0.459);
+  inset: 0;
+  z-index: 1;
+}
+.bedroom {
+  position: relative;
+  background-image: url("https://images.pexels.com/photos/1571450/pexels-photo-1571450.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bedroom::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.54);
+  inset: 0;
+  z-index: 1;
+}
+.open {
+  position: absolute;
+  z-index: 10;
+}
+.second {
+  background-image: url("https://images.pexels.com/photos/1571471/pexels-photo-1571471.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.third {
+  background-image: url("https://images.pexels.com/photos/3797991/pexels-photo-3797991.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.forth {
+  background-image: url("https://images.pexels.com/photos/7027980/pexels-photo-7027980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

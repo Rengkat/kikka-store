@@ -1,3 +1,96 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.open {
+  width: 80%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  color: black;
+}
+.nav {
+  position: sticky;
+  top: 0;
+}
+.roomAd {
+  background-image: url("https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.roomAd::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.504);
+}
+.roomAd2 {
+  background-image: url("https://images.pexels.com/photos/373530/pexels-photo-373530.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.roomAd2::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-color: rgba(0, 0, 255, 0.426);
+}
+.roomAd3 {
+  background-image: url("https://images.pexels.com/photos/1648768/pexels-photo-1648768.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.roomAd3::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-color: rgba(0, 0, 255, 0.426);
+}
+.ContactHero {
+  background-image: url("https://images.pexels.com/photos/3935311/pexels-photo-3935311.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.ContactHero::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.426);
+}
+.form {
+  background-image: url("https://images.pexels.com/photos/7031911/pexels-photo-7031911.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.form::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.693);
+}
+.span {
+  padding-left: 5px;
+  padding-bottom: 1px;
+}
+.contact li {
+  padding-top: 5px;
+}
+.images {
+  position: relative;
+  transition: all;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in;
+}
+.images:hover {
+  transform: rotateZ(5deg);
+}
