@@ -123,7 +123,7 @@ function Cart() {
             </li>
             <li>
               <button className="bg-yellow-700 rounded-md shadow-md text-xl hover:opacity-75 font-semibold text-white w-[90%] mx-auto py-3 mt-3 px-4 capitalize ">
-                <Link to="/checkout">Checkout</Link>
+                <Link to="/chechout">Proceed to Checkout</Link>
               </button>
             </li>
           </div>
