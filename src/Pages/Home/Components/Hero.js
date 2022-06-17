@@ -23,9 +23,7 @@ const heroContainer =
 function Hero() {
   const { opnenMenu } = useContext(GeneralContext);
   return (
-    <div
-      onClick={opnenMenu}
-      className=" grid grid-cols-1 gap-4 md:grid-cols-3 md:col-span-3">
+    <div className=" grid grid-cols-1 gap-4 md:grid-cols-3 md:col-span-3">
       <div className="h-[80vh] md:col-span-2 md:row-span-2 ">
         <Swiper
           spaceBetween={30}

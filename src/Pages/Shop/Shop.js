@@ -17,7 +17,7 @@ function Shop() {
         {categories.map((category, index) => {
           return (
             <div key={index}>
-              <button className="border-2 border-yellow-700 w-[10rem]  text-yellow-700 py-2 px-3 font-bold rounded-md shadow uppercase">
+              <button className="border-2 hover:bg-yellow-700 transition-all ease-linear duration-300 hover:text-white border-yellow-700 w-[10rem]  text-yellow-700 py-2 px-3 font-bold rounded-md shadow uppercase">
                 {category}
               </button>
             </div>

@@ -100,7 +100,7 @@ function NavBar() {
                 className="text-yellow-700 hover:opacity-75"
               />
               <div className={box}>
-                <h1>{cart.length}</h1>
+                <h1>{cart?.length}</h1>
               </div>
             </Link>
             <Link to="/wishlist" className="relative">
@@ -109,7 +109,7 @@ function NavBar() {
                 className="text-yellow-700 hover:opacity-75"
               />
               <div className={box}>
-                <h1>{wishlist.length}</h1>
+                <h1>{wishlist?.length}</h1>
               </div>
             </Link>
           </div>

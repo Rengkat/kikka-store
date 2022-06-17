@@ -1,10 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SingleProductContext } from "../Contexts/SingleContext";
 import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 
 function Cart() {
-  const { cart, removeFromCart, clearCart } = useContext(SingleProductContext);
+  const { cart, removeFromCart, clearCart, increaseQuanity, decreaseQuanity } =
+    useContext(SingleProductContext);
+  // console.log(cart);
+  const [total, setTotal] = useState(0);
+  const shipping = ["Local", "International"];
+  const [shippingOp, setShippingOpt] = useState("");
+  useEffect(() => {
+    setTotal(
+      cart.reduce(
+        (acc, curr) => acc + Number(curr.price) * Number(curr.quantity),
+        0
+      )
+    );
+  }, [cart]);
+
   if (cart.length === 0) {
     return (
       <div className="text-center my-[20rem]">
@@ -29,7 +43,7 @@ function Cart() {
               className="flex justify-between items-center my-5 shadow-sm rounded-md p-5 border-2 border-gray-100">
               <div className="flex space-x-5">
                 <img
-                  src={item?.images[0].url}
+                  src={item && item?.images[0].url}
                   alt="Image"
                   className=" object-cover h-28 w-36 md:h-36 md:w-56"
                 />
@@ -38,23 +52,24 @@ function Cart() {
                     {item.name}
                   </h1>
                   <h1 className=" md:text-xl font-semibold text-yellow-700">
-                    ${item.price.toLocaleString()}
+                    ${(item.price * item.quantity).toLocaleString()}
                   </h1>
                   <h1 className=" md:text-xl   capitalize">
                     Brand: {item.company}
                   </h1>
                   <div className="flex space-x-2 md:space-x-3 items-end mt-4 md:mt-9 md:text-xl">
                     <button
-                      // onClick={() => decreaseQty(item.id)}
-                      className="border-2 border-gray-200 bg-gray-200 rounded-md py-1 px-2 hover:opacity-75">
-                      -
+                      onClick={() => decreaseQuanity(item.id)}
+                      className=" font-bold text-yellow-700 shadow p-2 border-1 rounded-md  ">
+                      <FaMinus />
                     </button>
-                    <h1 className="pb-2">1</h1>
+                    <h3 className="text-2xl ">{item.quantity}</h3>
+                    {/* {console.log(item.id)} */}
 
                     <button
-                      // onClick={() => increaseQty(item.id)}
-                      className="border-2 border-gray-200 bg-gray-200 rounded-md py-1 px-2 hover:opacity-75 ">
-                      +
+                      onClick={() => increaseQuanity(item.id)}
+                      className=" font-bold text-yellow-700 shadow p-2 border-1 rounded-md  ">
+                      <FaPlus />
                     </button>
                   </div>
                 </div>
@@ -75,12 +90,28 @@ function Cart() {
             SUMMARY AMOUNT{" "}
           </h1>
           <div className="flex justify-between px-6 text-xl">
-            <h1>Sub-Total Amount</h1>
-            <h1>$12342</h1>
+            <h1>Sub-Total Amount:</h1>
+            <h1>${total.toLocaleString()}</h1>
           </div>
-          <div className="flex justify-between px-6 py-2 text-xl">
-            <h1>Shipping Fee</h1>
-            <h1>$12342</h1>
+          <div className="flex justify-between px-6 py-2 text-xl my-5">
+            <h1>Shipping:</h1>
+            <select
+              value={shippingOp}
+              onChange={(e) => setShippingOpt(e.target.value)}
+              className="w-full py-1 border-2 border-gray-300 outline-none ml-5">
+              <option value="">Shipping zone</option>
+              {shipping.map((x, index) => {
+                return (
+                  <option key={index} value={x}>
+                    {x}
+                  </option>
+                );
+              })}
+            </select>
+            <p className="px-3"> {shippingOp === "Local" ? "$300" : "$500"}</p>
+
+            {/* <h1>Shipping Fee</h1>
+            <h1>$12342</h1> */}
           </div>
           <div className="btn text-center list-none mt-6">
             <li>
@@ -92,7 +123,7 @@ function Cart() {
             </li>
             <li>
               <button className="bg-yellow-700 rounded-md shadow-md text-xl hover:opacity-75 font-semibold text-white w-[90%] mx-auto py-3 mt-3 px-4 capitalize ">
-                Checkout
+                <Link to="/checkout">Checkout</Link>
               </button>
             </li>
           </div>
@@ -103,12 +134,3 @@ function Cart() {
 }
 
 export default Cart;
-
-// function Cart() {
-//   const { cart, removeItem, clearAllCart, increaseQty, quantity, decreaseQty } =
-//     useContext(CommerceContext);
-//   const uniqeProduct = [...new Set(cart)];
-
-// }
-
-// export default Cart;

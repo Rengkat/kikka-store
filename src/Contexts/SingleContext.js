@@ -4,14 +4,13 @@ import SingleProductReducer from "../Components/Reducers/SingleProductReducer";
 export const SingleProductContext = createContext();
 const initialState = {
   cart: [],
-  product: {},
   wishlist: [],
   loading: false,
 };
 
 function SingleContextProvider({ children }) {
   const [state, dispatch] = useReducer(SingleProductReducer, initialState);
-  // console.log(state.products);
+  // console.log(state.cart);
 
   const addToCart = (product) => {
     dispatch({ type: "ADD_TO_CART", payload: product });
@@ -31,11 +30,20 @@ function SingleContextProvider({ children }) {
   const clearWishlist = () => {
     dispatch({ type: "CLEAR_WISHLIST" });
   };
+  const increaseQuanity = (id) => {
+    dispatch({ type: "INCREASE_QUANTITY", payload: id });
+  };
+  const decreaseQuanity = (id) => {
+    dispatch({ type: "DECREASE_QUANTITY", payload: id });
+  };
+
   return (
     <SingleProductContext.Provider
       value={{
         ...state,
         addToWishList,
+        increaseQuanity,
+        decreaseQuanity,
         addToCart,
         removeFromCart,
         removeFromWishlist,

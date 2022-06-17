@@ -25,6 +25,9 @@ const rating = (stars) => {
 function SingleProduct() {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
+
+  // product.quantity = 1;
+
   const { addToCart, addToWishList } = useContext(SingleProductContext);
   const fetchProduct = async () => {
     const data = await fetch(
@@ -33,10 +36,11 @@ function SingleProduct() {
     const response = await data.json();
     setProduct(response);
   };
+
   useEffect(() => {
     fetchProduct();
   }, []);
-  // console.log(product);
+
   return (
     <div className="w-[85%] mx-auto mt-10 mb-20 md:mb-[20rem]">
       <main className="md:flex space-x-7">
@@ -93,20 +97,24 @@ function SingleProduct() {
               })}
             </ul>
           </div>
-          <div className="company flex list-none font-bold capitalize py-3 space-x-5">
+          {/* <div className="company flex list-none font-bold capitalize py-3 space-x-5">
             <li>
-              <button className=" font-bold text-yellow-700 shadow p-2 border-2 rounded-md  ">
+              <button
+                onClick={decreaseQuanity}
+                className=" font-bold text-yellow-700 shadow p-2 border-2 rounded-md  ">
                 <FaMinus />
               </button>
             </li>
-            <li className="text-2xl ">2</li>
+            <li className="text-2xl ">{product.quantity}</li>
             <li>
-              <button className=" font-bold text-yellow-700 shadow p-2 border-2 rounded-md  ">
+              <button
+                onClick={() => increaseQuanity(product.id)}
+                className=" font-bold text-yellow-700 shadow p-2 border-2 rounded-md  ">
                 <FaPlus />
               </button>
             </li>
-          </div>
-          <div className="btn flex list-none space-x-4 mt-3 ">
+          </div> */}
+          <div className="btn flex list-none space-x-4 mt-5 ">
             <li>
               <button
                 onClick={() => addToCart(product)}
@@ -130,16 +138,3 @@ function SingleProduct() {
 }
 
 export default SingleProduct;
-
-// category: "bedroom"
-// colors: (3) ['#000', '#00ff00', '#0000ff']
-// company: "marcos"
-// description: "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge"
-// id: "recd1jIVIEChmiwhe"
-// images: (5) [{…}, {…}, {…}, {…}, {…}]
-// name: "armchair"
-// price: 12599
-// reviews: 33
-// shipping: true
-// stars: 4.6
-// stock: 3

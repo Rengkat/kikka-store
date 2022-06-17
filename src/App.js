@@ -1,5 +1,13 @@
 import { Footer, NavBar, Newsleter } from "./Components";
-import { Cart, Contact, Home, Shop, SingleProduct, Wishlist } from "./Pages";
+import {
+  Cart,
+  Contact,
+  Home,
+  Shop,
+  SingleProduct,
+  Wishlist,
+  CheckOut,
+} from "./Pages";
 import { Route, Routes } from "react-router-dom";
 import SingleContextProvider from "./Contexts/SingleContext";
 
@@ -15,6 +23,7 @@ function App() {
             <Route exact path="/shop" element={<Shop />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/wishlist" element={<Wishlist />} />
+            <Route exact path="/chechout" element={<CheckOut />} />
             <Route
               exact
               path="/singleProduct/:productId"
