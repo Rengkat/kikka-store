@@ -12,6 +12,9 @@ function GeneralReducer(state, action) {
   if (action.type === "LOADING") {
     return { ...state, loading: action.payload };
   }
+  if (action.type === "UPDATE_USER") {
+    return { ...state, user: action.payload };
+  }
   return state;
 }
 

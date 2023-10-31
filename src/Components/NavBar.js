@@ -25,6 +25,7 @@ function NavBar() {
   const { cart, wishlist } = useContext(SingleProductContext);
   // const [isOpen, setIsOpen] = useState(true);
   const { opnenMenu, isOpnenMenu } = useContext(GeneralContext);
+
   return (
     <div>
       {/* ...........MENU........... */}
@@ -36,7 +37,7 @@ function NavBar() {
         />
       </div>
       {/* ............MOBILE MENU */}
-      <div onClick={() => opnenMenu} className={isOpnenMenu ? isnotOpne : isOpenMenu}>
+      <div onClick={opnenMenu} className={isOpnenMenu ? isnotOpne : isOpenMenu}>
         <div className="menu w-full flex justify-end p-5">
           <BiMenuAltRight onClick={opnenMenu} fontSize={45} className="text-white " />
         </div>

@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import GeneralReducer from "../Components/Reducers/GeneralReducer";
+import { addUserToLocalStorage, getUserFromLocalStorage } from "./localStorage";
 
 export const GeneralContext = createContext();
 const initaialState = {
@@ -7,6 +8,7 @@ const initaialState = {
   loading: true,
   error: false,
   products: [],
+  user: getUserFromLocalStorage(),
 };
 
 function GeneralContextProvider({ children }) {
@@ -14,6 +16,11 @@ function GeneralContextProvider({ children }) {
   // console.log(state.products);
   const opnenMenu = () => {
     dispatch({ type: "OPEN_MENU" });
+  };
+  // addUserToLocalStorage
+  const updateUser = (user) => {
+    dispatch({ type: "UPDATE_USER" });
+    addUserToLocalStorage(user);
   };
   const fetchProducts = async () => {
     dispatch({ type: "LOADING", payload: true });
@@ -28,11 +35,8 @@ function GeneralContextProvider({ children }) {
       dispatch({ type: "ERROR", payload: true });
     }
   };
-  useEffect(() => {
-    fetchProducts();
-  }, []);
   return (
-    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts }}>
+    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts, updateUser }}>
       {children}
     </GeneralContext.Provider>
   );

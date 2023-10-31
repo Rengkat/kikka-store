@@ -32,9 +32,7 @@ function Products({ product }) {
             className=" w-full h-[10rem] md:h-[18rem]  object-cover"
           />
           <div className="py-5">
-            <h1 className=" capitalize font-semibold text-xl md:text-2xl">
-              {name}
-            </h1>
+            <h1 className=" capitalize font-light text-xl md:text-2xl">{name}</h1>
             {rating(price)}
             <h1 className="font-semibold text-xl">${price.toLocaleString()}</h1>
           </div>

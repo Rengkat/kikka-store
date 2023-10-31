@@ -45,7 +45,7 @@ function FeatureProducts({ featureProducts, title }) {
                 />
 
                 <div className="detali text-center p-3 md:pt-5 md:pb-8 ">
-                  <h1 className="font-semibold text-xl md:text-2xl capitalize ">{product.name}</h1>
+                  <h1 className="font-light text-xl md:text-2xl capitalize ">{product.name}</h1>
                   {rating(product.price)}
                   <p className="font-smibold text-2xl">${product.price.toLocaleString()}</p>
                 </div>

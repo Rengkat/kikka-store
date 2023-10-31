@@ -14,7 +14,7 @@ function App() {
         <div className="home">
           <Routes>
             <Route exact path="/login" element={<Login />} />
-            <Route exact path="/sing-up" element={<SignUp />} />
+            <Route exact path="/sign-up" element={<SignUp />} />
             <Route exact path="/" element={<SharedLayout />}>
               <Route index element={<Home />} />
               <Route exact path="/" element={<ProtectedRoute />}>
