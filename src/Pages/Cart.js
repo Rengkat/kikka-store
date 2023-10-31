@@ -6,17 +6,12 @@ import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 function Cart() {
   const { cart, removeFromCart, clearCart, increaseQuanity, decreaseQuanity } =
     useContext(SingleProductContext);
-  // console.log(cart);
+  console.log(cart);
   const [total, setTotal] = useState(0);
   const shipping = ["Local", "International"];
   const [shippingOp, setShippingOpt] = useState("");
   useEffect(() => {
-    setTotal(
-      cart.reduce(
-        (acc, curr) => acc + Number(curr.price) * Number(curr.quantity),
-        0
-      )
-    );
+    setTotal(cart.reduce((acc, curr) => acc + Number(curr.price) * Number(curr.quantity), 0));
   }, [cart]);
 
   if (cart.length === 0) {
@@ -48,15 +43,11 @@ function Cart() {
                   className=" object-cover h-28 w-36 md:h-36 md:w-56"
                 />
                 <div className="info">
-                  <h1 className=" md:text-xl font-semibold capitalize">
-                    {item.name}
-                  </h1>
+                  <h1 className=" md:text-xl font-semibold capitalize">{item.name}</h1>
                   <h1 className=" md:text-xl font-semibold text-yellow-700">
                     ${(item.price * item.quantity).toLocaleString()}
                   </h1>
-                  <h1 className=" md:text-xl   capitalize">
-                    Brand: {item.company}
-                  </h1>
+                  <h1 className=" md:text-xl   capitalize">Brand: {item.company}</h1>
                   <div className="flex space-x-2 md:space-x-3 items-end mt-4 md:mt-9 md:text-xl">
                     <button
                       onClick={() => decreaseQuanity(item.id)}
@@ -86,9 +77,7 @@ function Cart() {
       </div>
       <div className="w-[95%] md:w-[35%] mt-5 mx-auto">
         <div className=" border-2 border-gray-200 rounded-md pb-10">
-          <h1 className="text-center font-bold text-xl pt-8 pb-16">
-            SUMMARY AMOUNT{" "}
-          </h1>
+          <h1 className="text-center font-bold text-xl pt-8 pb-16">SUMMARY AMOUNT </h1>
           <div className="flex justify-between px-6 text-xl">
             <h1>Sub-Total Amount:</h1>
             <h1>${total.toLocaleString()}</h1>

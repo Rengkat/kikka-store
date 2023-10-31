@@ -38,7 +38,6 @@ function SingleProductReducer(state, action) {
   }
 
   if (action.type === "DECREASE_QUANTITY") {
-    // const pro = state.cart.filter((x) => x.id === action.payload);
     return {
       ...state,
       cart: state.cart.map((x) =>
@@ -51,7 +50,12 @@ function SingleProductReducer(state, action) {
       ),
     };
   }
-
+  if (action.type === "SELECT_IMAGE") {
+    return { ...state, selectedImage: action.payload };
+  }
+  if (action.type === "CHANGE_SELECT") {
+    return { ...state, isSelected: action.payload };
+  }
   return state;
 }
 

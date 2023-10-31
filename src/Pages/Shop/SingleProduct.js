@@ -25,14 +25,14 @@ const rating = (stars) => {
 function SingleProduct() {
   const { productId } = useParams();
   const [product, setProduct] = useState({});
+  const [selected, setSelected] = useState(false);
 
   // product.quantity = 1;
 
-  const { addToCart, addToWishList } = useContext(SingleProductContext);
+  const { addToCart, addToWishList, selectedImage, isSelected } = useContext(SingleProductContext);
+  console.log(isSelected);
   const fetchProduct = async () => {
-    const data = await fetch(
-      `https://course-api.com/react-store-single-product?id=${productId}`
-    );
+    const data = await fetch(`https://course-api.com/react-store-single-product?id=${productId}`);
     const response = await data.json();
     setProduct(response);
   };
@@ -46,19 +46,15 @@ function SingleProduct() {
       <main className="md:flex space-x-7">
         <div className="image ">
           <img
-            src={product.images && product?.images[0]?.url}
+            src={isSelected ? selectedImage : product.images && product?.images[0]?.url}
             alt={` ${product.name} Image`}
             className=" object-cover w-full md:w-[40rem] h-[17rem] md:h-[70vh]"
           />
           <Images product={product} />
         </div>
         <div className="my-8 md:my-0 md:w-[40%] lg:w-[30%]">
-          <h1 className=" capitalize text-xl md:text-2xl font-bold p">
-            {product.name}
-          </h1>
-          <h1 className="text-yellow-700 font-bold text-xl">
-            ${product?.price?.toLocaleString()}
-          </h1>
+          <h1 className=" capitalize text-xl md:text-2xl font-bold p">{product.name}</h1>
+          <h1 className="text-yellow-700 font-bold text-xl">${product?.price?.toLocaleString()}</h1>
 
           <div className="star flex space-x-3">
             {/* stars */}
@@ -76,9 +72,7 @@ function SingleProduct() {
           </div>
           <div
             className={
-              product.stock
-                ? "flex list-none font-bold py-1 capitalize space-x-5"
-                : "hidden"
+              product.stock ? "flex list-none font-bold py-1 capitalize space-x-5" : "hidden"
             }>
             <li>Stock:</li>
             <li>Available</li>
@@ -97,30 +91,13 @@ function SingleProduct() {
               })}
             </ul>
           </div>
-          {/* <div className="company flex list-none font-bold capitalize py-3 space-x-5">
-            <li>
-              <button
-                onClick={decreaseQuanity}
-                className=" font-bold text-yellow-700 shadow p-2 border-2 rounded-md  ">
-                <FaMinus />
-              </button>
-            </li>
-            <li className="text-2xl ">{product.quantity}</li>
-            <li>
-              <button
-                onClick={() => increaseQuanity(product.id)}
-                className=" font-bold text-yellow-700 shadow p-2 border-2 rounded-md  ">
-                <FaPlus />
-              </button>
-            </li>
-          </div> */}
+
           <div className="btn flex list-none space-x-4 mt-5 ">
             <li>
               <button
                 onClick={() => addToCart(product)}
                 className="flex space-x-2 text-white bg-yellow-700 py-2 px-3 rounded-md shadow font-semibold">
-                <FaShoppingCart fontSize={20} className="pt-1" />{" "}
-                <span>Add To Cart</span>
+                <FaShoppingCart fontSize={20} className="pt-1" /> <span>Add To Cart</span>
               </button>
             </li>
             <li>

@@ -21,29 +21,21 @@ const rating = (price) => {
   if (price > 80000 && price < 900000) return <FourStarsHalf />;
   if (price > 90000) return <FiveStars />;
 };
-function FeatureProducts() {
-  const { products } = useContext(GeneralContext);
-  const featureProducts = products?.filter(
-    (featureProduct) => featureProduct.featured
-  );
-  const fourFeatureProducts = featureProducts.slice(0, 4);
-  // console.log(featureProducts);
+function FeatureProducts({ featureProducts, title }) {
   return (
     <div className="mt-[7rem] mb-32">
       <div className="text-center">
-        <h1 className="font-bold text-2xl md:text-4xl">RECENT PRODUCTS</h1>
+        <h1 className="font-bold text-2xl md:text-4xl">{title}</h1>
         <div className="bg-yellow-700 w-[4rem] my-2 h-2 md:my-5 mx-auto" />
         <p className="w-[70%] md:w-[50%] mx-auto py-5 text-xl md:text-2xl">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae
-          asperiores deleniti maiores nulla.
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae asperiores deleniti maiores
+          nulla.
         </p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 w-[90%] mx-auto gap-5 md:gap-8 mt-3 ">
-        {fourFeatureProducts?.map((product) => {
+        {featureProducts?.map((product) => {
           return (
-            <section
-              key={product.id}
-              className="shadow-md border-2 hover:shadow-lg  ">
+            <section key={product.id} className="shadow-md border-2 hover:shadow-lg  ">
               {" "}
               <Link to="/shop">
                 <img
@@ -53,13 +45,9 @@ function FeatureProducts() {
                 />
 
                 <div className="detali text-center p-3 md:pt-5 md:pb-8 ">
-                  <h1 className="font-semibold text-xl md:text-2xl capitalize ">
-                    {product.name}
-                  </h1>
+                  <h1 className="font-semibold text-xl md:text-2xl capitalize ">{product.name}</h1>
                   {rating(product.price)}
-                  <p className="font-smibold text-2xl">
-                    ${product.price.toLocaleString()}
-                  </p>
+                  <p className="font-smibold text-2xl">${product.price.toLocaleString()}</p>
                 </div>
               </Link>
             </section>

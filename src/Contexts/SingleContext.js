@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 
 import SingleProductReducer from "../Components/Reducers/SingleProductReducer";
 export const SingleProductContext = createContext();
@@ -6,6 +6,8 @@ const initialState = {
   cart: [],
   wishlist: [],
   loading: false,
+  selectedImage: {},
+  isSelected: false,
 };
 
 function SingleContextProvider({ children }) {
@@ -36,7 +38,12 @@ function SingleContextProvider({ children }) {
   const decreaseQuanity = (id) => {
     dispatch({ type: "DECREASE_QUANTITY", payload: id });
   };
-
+  const selectImage = (image) => {
+    dispatch({ type: "SELECT_IMAGE", payload: image });
+  };
+  const changeSelect = (res) => {
+    dispatch({ type: "CHANGE_SELECT", payload: res });
+  };
   return (
     <SingleProductContext.Provider
       value={{
@@ -49,6 +56,8 @@ function SingleContextProvider({ children }) {
         removeFromWishlist,
         clearCart,
         clearWishlist,
+        selectImage,
+        changeSelect,
       }}>
       {children}
     </SingleProductContext.Provider>
