@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../Assest/icon.png";
-import { FaRegHeart, FaShoppingBag } from "react-icons/fa";
-import { IoMdContact } from "react-icons/io";
+import { FaRegHeart, FaShoppingBag, FaUserAlt } from "react-icons/fa";
+import { IoMdContact, IoMdLogIn } from "react-icons/io";
 import { HiHome } from "react-icons/hi";
 import { GiShoppingBag, GiHamburgerMenu } from "react-icons/gi";
-import { BiMenuAltRight } from "react-icons/bi";
+import { BiMenuAltRight, BiLogOutCircle } from "react-icons/bi";
 import { useContext, useState } from "react";
 import { GeneralContext } from "../Contexts/GeneralContext";
 import { SingleProductContext } from "../Contexts/SingleContext";
+import { getUserFromLocalStorage, removeUserFromLocalStorage } from "../Contexts/localStorage";
 
 // STYLES/////////////
 const isOpenMenu =
@@ -22,10 +23,15 @@ const box =
 
 // ............FUNCTION....................
 function NavBar() {
+  const navigate = useNavigate();
   const { cart, wishlist } = useContext(SingleProductContext);
-  // const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const user = getUserFromLocalStorage();
   const { opnenMenu, isOpnenMenu } = useContext(GeneralContext);
-
+  const handleLogout = () => {
+    removeUserFromLocalStorage();
+    navigate("/login");
+  };
   return (
     <div>
       {/* ...........MENU........... */}
@@ -58,12 +64,25 @@ function NavBar() {
             <span className="pl-3">Contact</span>
           </li>
         </Link>
+        <div className={linkMoble}>
+          <li className="flex list-none cursor-pointer">
+            {user ? (
+              <BiLogOutCircle onClick={handleLogout} fontSize={32} />
+            ) : (
+              <Link to={"/login"}>
+                <IoMdLogIn fontSize={32} />
+              </Link>
+            )}
+
+            <span className="pl-3">{user ? "Log out" : "Login"}</span>
+          </li>
+        </div>
       </div>
       {/* ..................MIDEUM SCREEN NAV..... AND LOGO................*/}
       <div className=" bg-gray-200 ">
         <nav className="flex w-[60%]  md:w-[70%] py-5 items-center mx-auto justify-between">
           <Link to="/">
-            <div className="logo flex items-cd flex-col justify-start hover:opacity-75 ">
+            <div className="logo hidden md:flex items-cd flex-col justify-start hover:opacity-75 ">
               <img src={logo} alt="Logo image" className="w-8 h-8 md:w-10 md:h-10" />
               <h1 className="font-bold md:text-xl -mt-2">
                 Buil<span className="text-yellow-600">din</span>
@@ -97,6 +116,29 @@ function NavBar() {
                 <h1>{wishlist?.length}</h1>
               </div>
             </Link>
+            <div className="relative">
+              <FaUserAlt
+                onClick={() => setIsOpen((prev) => !prev)}
+                className=" text-3xl text-yellow-700 cursor-pointer hidden md:block"
+              />
+              {isOpen && (
+                <div className="absolute -translate-x-[30%] top-[110%] w-[10rem] border-[1px] border-yellow-600 p-2 z-20 bg-white rounded shadow">
+                  {user ? (
+                    <button
+                      onClick={handleLogout}
+                      className="bg-yellow-700 rounded shadow py-2 px-5 text-white w-full ">
+                      Log out
+                    </button>
+                  ) : (
+                    <Link to={"/login"}>
+                      <button className="bg-yellow-700 rounded shadow py-2 px-5 text-white w-full ">
+                        Login
+                      </button>
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </nav>
       </div>

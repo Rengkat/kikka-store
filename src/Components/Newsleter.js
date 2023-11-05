@@ -2,13 +2,12 @@ import React from "react";
 
 function NewsLetter() {
   return (
-    <div className="text-center py-10">
+    <div className="text-center py-10 mb-[5rem] mt-[8rem]">
       <h1 className="font-bold text-2xl md:text-3xl ">JOIN OUR MAILING LIST</h1>
       <div className="bg-yellow-700 w-[4rem] h-2 my-5 mx-auto" />
       <p className="py-7 md:py-8 text-black w-2/3 mx-auto text-xl md:text-2xl">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit eius
-        voluptates, esse minima perferendis delectus tempora nisi optio
-        reprehenderit doloremque?
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit eius voluptates, esse minima
+        perferendis delectus tempora nisi optio reprehenderit doloremque?
       </p>
       <div className="input bg-yellow-700 inline my-5">
         <input

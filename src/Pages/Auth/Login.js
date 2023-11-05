@@ -5,6 +5,7 @@ import { GeneralContext } from "../../Contexts/GeneralContext";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const { updateUser, user } = useContext(GeneralContext);
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +21,7 @@ const Login = () => {
     setPassword("");
   };
   if (user) {
-    <Navigate to="/" />;
+    return <Navigate to="/" />;
   }
   return (
     <div className="h-screen flex justify-center items-center">
