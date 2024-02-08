@@ -13,7 +13,7 @@ const SignUp = () => {
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserDetails({ ...userDetails, [name]: value });
+    setUserDetails((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleSubmit = async () => {
     if (
@@ -26,6 +26,7 @@ const SignUp = () => {
       setErrMessage("Please enter all fields");
     } else {
       if (userDetails.password === confirmPassword) {
+        console.log(userDetails);
         try {
           const res = await fetch("http://localhost:5000/api/users", {
             method: "POST",
@@ -34,14 +35,17 @@ const SignUp = () => {
             },
             body: JSON.stringify(userDetails),
           });
+          console.log(userDetails);
           if (res.ok) {
-            console.log(res.json());
+            const data = await res.json();
+            console.log(data);
           }
         } catch (error) {
-          console.log(error.message);
+          setErrMessage("An error occurred while processing your request");
         }
       } else {
         setErrMessage("Password not matched!");
+        console.log("err");
       }
     }
   };
