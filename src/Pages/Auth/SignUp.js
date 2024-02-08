@@ -2,6 +2,49 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../Assest/icon.png";
 const SignUp = () => {
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+  const [userDetails, setUserDetails] = useState({
+    firstName: "",
+    surname: "",
+    phone: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetails({ ...userDetails, [name]: value });
+  };
+  const handleSubmit = async () => {
+    if (
+      userDetails.firstName === "" ||
+      userDetails.surname === "" ||
+      userDetails.phone === "" ||
+      userDetails.email === "" ||
+      userDetails.password === ""
+    ) {
+      setErrMessage("Please enter all fields");
+    } else {
+      if (userDetails.password === confirmPassword) {
+        try {
+          const res = await fetch("http://localhost:5000/api/users", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(userDetails),
+          });
+          if (res.ok) {
+            console.log(res.json());
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      } else {
+        setErrMessage("Password not matched!");
+      }
+    }
+  };
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="w-[95%] sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[25%] border-2 px-[1.5rem] py-[2rem]">
@@ -20,33 +63,48 @@ const SignUp = () => {
             className="w-full block border-[1px] border-zinc-400 rounded-md mt-[1rem] py-2 px-4"
             type="text"
             placeholder="Enter first name"
+            name="firstName"
+            onChange={handleChange}
           />
           <input
             className="w-full block border-[1px] border-zinc-400 rounded-md mt-[1rem] py-2 px-4"
             type="text"
             placeholder="Enter surname"
+            name="surname"
+            onChange={handleChange}
           />
           <input
             className="w-full block border-[1px] border-zinc-400 rounded-md mt-[1rem] py-2 px-4"
             type="text"
             placeholder="Phone"
+            onChange={handleChange}
+            name="phone"
           />
           <input
             className="w-full block border-[1px] border-zinc-400 rounded-md mt-[1rem] py-2 px-4"
             type="email"
             placeholder="Enter email"
+            onChange={handleChange}
+            name="email"
           />
           <input
             className="w-full block border-[1px] border-zinc-400 rounded-md mt-[1rem] py-2 px-4"
             type="password"
             placeholder="Enter password"
+            onChange={handleChange}
+            name="password"
           />
           <input
             className="w-full block border-[1px] border-zinc-400 rounded-md mt-[1rem] py-2 px-4"
             type="password"
             placeholder="Confirm password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
+            name="confirmPassword"
           />
-          <button className="bg-yellow-700 w-full py-3 px-10 rounded shadow text-white my-[1rem]">
+          <button
+            onClick={handleSubmit}
+            className="bg-yellow-700 w-full py-3 px-10 rounded shadow text-white my-[1rem]">
             Register
           </button>
           <p>
