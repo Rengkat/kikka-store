@@ -6,6 +6,9 @@ function GeneralReducer(state, action) {
   if (action.type === "FETCH_PRODUCTS") {
     return { ...state, products: action.payload };
   }
+  if (action.type === "FETCH_USER") {
+    return { ...state };
+  }
   if (action.type === "ERROR") {
     return { ...state, error: action.payload };
   }

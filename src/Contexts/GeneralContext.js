@@ -22,13 +22,12 @@ function GeneralContextProvider({ children }) {
     dispatch({ type: "UPDATE_USER" });
     addUserToLocalStorage(user);
   };
+  const fetchUser = async () => {};
   const fetchProducts = async () => {
     dispatch({ type: "LOADING", payload: true });
     try {
       const data = await fetch("https://course-api.com/react-store-products");
       const response = await data.json();
-      console.log(response);
-      console.log("first");
 
       dispatch({ type: "FETCH_PRODUCTS", payload: response });
       dispatch({ type: "ERROR", payload: false });

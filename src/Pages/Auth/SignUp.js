@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assest/icon.png";
+import { GeneralContext } from "../../Contexts/GeneralContext";
 const SignUp = () => {
+  const { user } = useContext(GeneralContext);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState("");
   const [userDetails, setUserDetails] = useState({
     firstName: "",
@@ -15,6 +18,11 @@ const SignUp = () => {
     const { name, value } = e.target;
     setUserDetails((prevState) => ({ ...prevState, [name]: value }));
   };
+  useEffect(() => {
+    if (user) {
+      navigate("/login");
+    }
+  }, [navigate, user]);
   const handleSubmit = async () => {
     if (
       userDetails.firstName === "" ||
@@ -26,19 +34,19 @@ const SignUp = () => {
       setErrMessage("Please enter all fields");
     } else {
       if (userDetails.password === confirmPassword) {
-        console.log(userDetails);
         try {
-          const res = await fetch("http://localhost:5000/api/users", {
+          const res = await fetch("http://localhost:5000/api/user", {
             method: "POST",
             headers: {
               "Content-type": "application/json",
             },
             body: JSON.stringify(userDetails),
           });
-          console.log(userDetails);
+
           if (res.ok) {
             const data = await res.json();
             console.log(data);
+            navigate("/login");
           }
         } catch (error) {
           setErrMessage("An error occurred while processing your request");
@@ -49,6 +57,7 @@ const SignUp = () => {
       }
     }
   };
+
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="w-[95%] sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[25%] border-2 px-[1.5rem] py-[2rem]">
