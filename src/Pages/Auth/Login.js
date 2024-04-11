@@ -10,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (email === "" || password === "") {
       setErr(true);
     }

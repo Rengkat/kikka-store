@@ -20,7 +20,7 @@ const SignUp = () => {
   };
   useEffect(() => {
     if (user) {
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate, user]);
   const handleSubmit = async () => {
@@ -34,6 +34,7 @@ const SignUp = () => {
       setErrMessage("Please enter all fields");
     } else {
       if (userDetails.password === confirmPassword) {
+        console.log(userDetails);
         try {
           const res = await fetch("http://localhost:5000/api/user", {
             method: "POST",
