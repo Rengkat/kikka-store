@@ -18,11 +18,11 @@ function GeneralContextProvider({ children }) {
     dispatch({ type: "OPEN_MENU" });
   };
   // addUserToLocalStorage
-  const updateUser = (user) => {
-    dispatch({ type: "UPDATE_USER" });
+  const loginUser = async (user) => {
+    dispatch({ type: "LOGIN_USER", payload: user });
     addUserToLocalStorage(user);
   };
-  const fetchUser = async () => {};
+
   const fetchProducts = async () => {
     dispatch({ type: "LOADING", payload: true });
     try {
@@ -37,7 +37,7 @@ function GeneralContextProvider({ children }) {
     }
   };
   return (
-    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts, updateUser }}>
+    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts, loginUser }}>
       {children}
     </GeneralContext.Provider>
   );

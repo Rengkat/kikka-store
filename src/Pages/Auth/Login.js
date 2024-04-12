@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../Assest/icon.png";
 import { GeneralContext } from "../../Contexts/GeneralContext";
-import { useNavigate } from "react-router-dom";
+
 const Login = () => {
-  const { updateUser, user } = useContext(GeneralContext);
+  const { loginUser, user } = useContext(GeneralContext);
 
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -14,9 +14,20 @@ const Login = () => {
     if (email === "" || password === "") {
       setErr(true);
     }
+    const res = await fetch("http://localhost:5000/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    const response = res.json();
+    if (response.ok) {
+      loginUser({ email, password });
+      navigate("/");
+    }
     setErr(false);
-    updateUser({ email, password });
-    navigate("/");
+
     setEmail("");
     setPassword("");
   };
