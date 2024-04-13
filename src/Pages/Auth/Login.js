@@ -1,35 +1,35 @@
 import React, { useContext, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../Assest/icon.png";
-import { GeneralContext } from "../../Contexts/GeneralContext";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const Login = () => {
-  const { loginUser, user } = useContext(GeneralContext);
+  const { dispatch, user } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
-  const handleSubmit = async () => {
-    if (email === "" || password === "") {
-      setErr(true);
-    }
-    const res = await fetch("http://localhost:5000/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const response = res.json();
-    if (response.ok) {
-      loginUser({ email, password });
-      navigate("/");
-    }
-    setErr(false);
 
-    setEmail("");
-    setPassword("");
+  const handleSubmit = async () => {
+    // if (email === "" || password === "") {
+    //   setErr(true);
+    // }
+    // const res = await fetch("http://localhost:5000/api/user/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({ email, password }),
+    // });
+    // const response = res.json();
+    // if (response.ok) {
+    //   loginUser({ email, password });
+    //   navigate("/");
+    // }
+    // setErr(false);
+    // setEmail("");
+    // setPassword("");
   };
   if (user) {
     return <Navigate to="/" />;

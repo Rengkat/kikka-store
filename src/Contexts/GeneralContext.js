@@ -8,19 +8,12 @@ const initaialState = {
   loading: true,
   error: false,
   products: [],
-  user: getUserFromLocalStorage(),
 };
 
 function GeneralContextProvider({ children }) {
   const [state, dispatch] = useReducer(GeneralReducer, initaialState);
-  // console.log(state.products);
   const opnenMenu = () => {
     dispatch({ type: "OPEN_MENU" });
-  };
-  // addUserToLocalStorage
-  const loginUser = async (user) => {
-    dispatch({ type: "LOGIN_USER", payload: user });
-    addUserToLocalStorage(user);
   };
 
   const fetchProducts = async () => {
@@ -37,7 +30,7 @@ function GeneralContextProvider({ children }) {
     }
   };
   return (
-    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts, loginUser }}>
+    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts }}>
       {children}
     </GeneralContext.Provider>
   );
