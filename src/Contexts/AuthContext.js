@@ -1,11 +1,15 @@
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 export const AuthContext = createContext();
+// Create a custom hook to use the auth context
+export const useAuth = () => useContext(AuthContext);
 export const authReducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN":
-      return { user: action.payload, isLogin: true };
+    case "SUCCESSFUL_LOGIN":
+      return { ...state, user: action.payload, loading: false, error: null };
+    case "FAILED_LOGIN":
+      return { ...state, user: null, loading: false, error: action.payload };
     case "LOGOUT":
-      return { user: null, isLogin: false };
+      return { user: null, loading: false, error: null };
     default:
       return state;
   }
@@ -13,7 +17,8 @@ export const authReducer = (state, action) => {
 const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
-    isLogin: false,
+    loading: false,
+    error: null,
   });
   return <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>;
 };

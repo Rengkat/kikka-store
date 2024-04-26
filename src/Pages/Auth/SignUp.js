@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assest/icon.png";
-import { GeneralContext } from "../../Contexts/GeneralContext";
+// import { GeneralContext } from "../../Contexts/GeneralContext";
+import useAuthContext from "../../CustomeHooks/useAuthContext";
 const SignUp = () => {
-  const { user } = useContext(GeneralContext);
+  const { user } = useAuthContext;
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState("");
