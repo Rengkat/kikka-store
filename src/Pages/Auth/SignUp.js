@@ -4,7 +4,7 @@ import logo from "../../Assest/icon.png";
 // import { GeneralContext } from "../../Contexts/GeneralContext";
 import useAuthContext from "../../CustomeHooks/useAuthContext";
 const SignUp = () => {
-  const { user } = useAuthContext;
+  const { user } = useAuthContext();
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const [errMessage, setErrMessage] = useState("");

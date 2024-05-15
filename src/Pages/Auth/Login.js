@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../Assest/icon.png";
 import { useAuth } from "../../Contexts/AuthContext";
 import useAuthContext from "../../CustomeHooks/useAuthContext";
+import { addUserToLocalStorage } from "../../Contexts/localStorage";
 
 const Login = () => {
   const { dispatch, user } = useAuthContext();
@@ -11,7 +12,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
 
-  console.log(user);
   const handleSubmit = async () => {
     if (email === "" || password === "") {
       setErr(true);
@@ -23,10 +23,13 @@ const Login = () => {
       },
       body: JSON.stringify({ email, password }),
     });
-    const response = res.json();
+    const response = await res.json();
     if (response.ok) {
+      const token = response.token;
+
       dispatch({ type: "SUCCESSFUL_LOGIN", payload: response });
       navigate("/");
+      console.log(token);
     }
     setErr(false);
     setEmail("");
