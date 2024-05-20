@@ -19,7 +19,9 @@ function GeneralContextProvider({ children }) {
   const fetchProducts = async () => {
     dispatch({ type: "LOADING", payload: true });
     try {
-      const data = await fetch("https://course-api.com/react-store-products");
+      const data = await fetch("https://course-api.com/react-store-products", {
+        mode: "no-cors",
+      });
       const response = await data.json();
 
       dispatch({ type: "FETCH_PRODUCTS", payload: response });

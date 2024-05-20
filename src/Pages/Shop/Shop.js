@@ -19,7 +19,9 @@ function Shop() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const data = await fetch("https://course-api.com/react-store-products");
+      const data = await fetch("https://course-api.com/react-store-products", {
+        mode: "no-cors",
+      });
       const response = await data.json();
       setProducts(response);
       setLoading(false);
