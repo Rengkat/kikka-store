@@ -26,11 +26,17 @@ function NavBar() {
   const navigate = useNavigate();
   const { cart, wishlist } = useContext(SingleProductContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const user = getUserFromLocalStorage();
   const { opnenMenu, isOpnenMenu } = useContext(GeneralContext);
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const response = await fetch("http://localhost:5000/api/user/login", {
+      method: "POST",
+    });
+    const res = response.json();
+    setMessage(res);
     removeUserFromLocalStorage();
-    navigate("/login");
+    navigate("/");
   };
   return (
     <div>

@@ -24,13 +24,14 @@ const Login = () => {
       body: JSON.stringify({ email, password }),
     });
     const response = await res.json();
-    console.log(response);
+
     if (response.ok) {
+      console.log(response);
       const token = response.token;
 
-      dispatch({ type: "SUCCESSFUL_LOGIN", payload: response });
+      dispatch({ type: "SUCCESSFUL_LOGIN", payload: { email } });
+      addUserToLocalStorage(token);
       navigate("/");
-      console.log(token);
     }
     setErr(false);
     setEmail("");

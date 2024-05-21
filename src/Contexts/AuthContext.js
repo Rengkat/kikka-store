@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import { getUserFromLocalStorage } from "./localStorage";
 export const AuthContext = createContext();
 // Create a custom hook to use the auth context
 export const useAuth = () => useContext(AuthContext);
@@ -20,6 +21,12 @@ const AuthContextProvider = ({ children }) => {
     loading: false,
     error: null,
   });
+  useEffect(() => {
+    const user = getUserFromLocalStorage();
+    if (user) {
+      dispatch({ type: "LOGIN", payload: user });
+    }
+  }, []);
   return <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>;
 };
 
