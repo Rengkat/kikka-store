@@ -7,6 +7,7 @@ import { addUserToLocalStorage } from "../../Contexts/localStorage";
 
 const Login = () => {
   const { dispatch, user } = useAuthContext();
+  console.log(user);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,11 +27,13 @@ const Login = () => {
     const response = await res.json();
 
     if (response.ok) {
-      console.log(response);
-      const token = response.token;
+      const user = {
+        name: `${response.user.surname} ${response.user.firstName}`,
+        token: response.token,
+      };
 
-      dispatch({ type: "SUCCESSFUL_LOGIN", payload: { email } });
-      addUserToLocalStorage(token);
+      dispatch({ type: "SUCCESSFUL_LOGIN", payload: user });
+      addUserToLocalStorage(user);
       navigate("/");
     }
     setErr(false);
