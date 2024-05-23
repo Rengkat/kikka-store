@@ -17,16 +17,11 @@ export const authReducer = (state, action) => {
 };
 const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
-    user: null,
+    user: getUserFromLocalStorage(),
     loading: false,
     error: null,
   });
-  useEffect(() => {
-    const user = getUserFromLocalStorage();
-    if (user) {
-      dispatch({ type: "LOGIN", payload: user });
-    }
-  }, []);
+
   return <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>;
 };
 

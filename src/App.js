@@ -1,19 +1,21 @@
 import { Footer, NavBar, Newsleter } from "./Components";
 import { Cart, Contact, Home, Shop, SingleProduct, Wishlist, CheckOut } from "./Pages";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import SingleContextProvider from "./Contexts/SingleContext";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Login from "./Pages/Auth/Login";
 import SignUp from "./Pages/Auth/SignUp";
 import SharedLayout from "./SharedLayout";
 import SharedLayoutProtected from "./Components/SharedLayoutProtedted";
+import useAuthContext from "./CustomeHooks/useAuthContext";
 
 function App() {
+  const { user } = useAuthContext();
   return (
     <div className="App overflow-hidden ">
       <SingleContextProvider>
         <Routes>
-          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/login" element={!user ? <Login /> : <Navigate to={"/"} />} />
           <Route exact path="/sign-up" element={<SignUp />} />
           <Route exact path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />

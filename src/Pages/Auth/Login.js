@@ -3,12 +3,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../../Assest/icon.png";
 import { useAuth } from "../../Contexts/AuthContext";
 import useAuthContext from "../../CustomeHooks/useAuthContext";
-import { addUserToLocalStorage } from "../../Contexts/localStorage";
+import { addUserToLocalStorage, getUserFromLocalStorage } from "../../Contexts/localStorage";
 
 const Login = () => {
   const { dispatch, user } = useAuthContext();
-  console.log(user);
-  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
@@ -28,13 +27,13 @@ const Login = () => {
 
     if (response.ok) {
       const user = {
-        name: `${response.user.surname} ${response.user.firstName}`,
+        firstName: response.user.surname,
+        surname: response.user.firstName,
         token: response.token,
       };
 
       dispatch({ type: "SUCCESSFUL_LOGIN", payload: user });
       addUserToLocalStorage(user);
-      navigate("/");
     }
     setErr(false);
     setEmail("");

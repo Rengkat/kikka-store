@@ -9,6 +9,7 @@ import { useContext, useState } from "react";
 import { GeneralContext } from "../Contexts/GeneralContext";
 import { SingleProductContext } from "../Contexts/SingleContext";
 import { getUserFromLocalStorage, removeUserFromLocalStorage } from "../Contexts/localStorage";
+import useAuthContext from "../CustomeHooks/useAuthContext";
 
 // STYLES/////////////
 const isOpenMenu =
@@ -27,8 +28,9 @@ function NavBar() {
   const { cart, wishlist } = useContext(SingleProductContext);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const user = getUserFromLocalStorage();
+
   const { opnenMenu, isOpnenMenu } = useContext(GeneralContext);
+  const { user } = useAuthContext();
   const handleLogout = async () => {
     const response = await fetch("http://localhost:5000/api/user/login", {
       method: "POST",
@@ -123,10 +125,13 @@ function NavBar() {
               </div>
             </Link>
             <div className="relative">
-              <FaUserAlt
-                onClick={() => setIsOpen((prev) => !prev)}
-                className=" text-3xl text-yellow-700 cursor-pointer hidden md:block"
-              />
+              <div className="flex items-end lg:gap-2">
+                <FaUserAlt
+                  onClick={() => setIsOpen((prev) => !prev)}
+                  className=" text-3xl text-yellow-700 cursor-pointer hidden md:block"
+                />
+                {user.firstName}
+              </div>
               {isOpen && (
                 <div className="absolute -translate-x-[30%] top-[110%] w-[10rem] border-[1px] border-yellow-600 p-2 z-20 bg-white rounded shadow">
                   {user ? (
