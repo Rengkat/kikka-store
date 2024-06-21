@@ -16,7 +16,7 @@ function App() {
       <SingleContextProvider>
         <Routes>
           <Route exact path="/login" element={!user ? <Login /> : <Navigate to={"/"} />} />
-          <Route exact path="/sign-up" element={<SignUp />} />
+          <Route exact path="/sign-up" element={!user ? <SignUp /> : <Navigate to={"/"} />} />
           <Route exact path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
             <Route
