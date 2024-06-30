@@ -37,7 +37,7 @@ const SignUp = () => {
       if (userDetails.password === confirmPassword) {
         console.log(userDetails);
         try {
-          const res = await fetch("http://localhost:5000/api/user", {
+          const res = await fetch("http://localhost:5000/api/user/register", {
             method: "POST",
             headers: {
               "Content-type": "application/json",

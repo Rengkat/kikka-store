@@ -5,34 +5,20 @@ import Products from "./Products";
 import { BreedingRhombusSpinner } from "react-epic-spinners";
 
 function Shop() {
-  const [products, setProducts] = useState([]);
+  const { products } = useContext(GeneralContext);
   const [loading, setLoading] = useState(false);
   const [categorisedProducts, setCategorisedProducts] = useState([]);
   const [categories, setCategories] = useState(["all"]);
+  console.log(products);
 
   const handleFilter = (category) => {
     setCategorisedProducts(
       category === "all" ? products : products.filter((product) => product.category === category)
     );
   };
-
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const data = await fetch("https://course-api.com/react-store-products", {
-        mode: "no-cors",
-      });
-      const response = await data.json();
-      setProducts(response);
-      setLoading(false);
-
-      // Calculate categories after fetching products
-      const uniqueCategories = ["all", ...new Set(response.map((product) => product.category))];
-      setCategories(uniqueCategories);
-      // Initially, display all products
-      setCategorisedProducts(response);
-    };
-    fetchData();
+    const uniqueCategories = ["all", ...new Set(products.map((product) => product.category))];
+    setCategories(uniqueCategories);
   }, []);
 
   return (
@@ -43,7 +29,7 @@ function Shop() {
             <div key={index}>
               <button
                 onClick={() => handleFilter(category)}
-                className="border-2 hover:bg-yellow-700 transition-all ease-linear duration-300 hover:text-white border-yellow-700 w-full text-yellow-700 py-2 px-3 font-bold rounded-md shadow uppercase">
+                className="border-2 hover:bg-yellow-700 transition-all ease-linear duration-300 hover:text-white border-yellow-700 w-full h-[5rem] text-yellow-700 py-2 px-3 font-bold rounded-md shadow uppercase">
                 {category}
               </button>
             </div>

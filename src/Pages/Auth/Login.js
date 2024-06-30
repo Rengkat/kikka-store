@@ -35,6 +35,8 @@ const Login = () => {
       dispatch({ type: "SUCCESSFUL_LOGIN", payload: user });
       addUserToLocalStorage(user);
     }
+    dispatch({ type: "FAILED_LOGIN", payload: response });
+
     setErr(false);
     setEmail("");
     setPassword("");

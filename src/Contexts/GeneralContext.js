@@ -19,9 +19,7 @@ function GeneralContextProvider({ children }) {
   const fetchProducts = async () => {
     dispatch({ type: "LOADING", payload: true });
     try {
-      const data = await fetch("https://course-api.com/react-store-products", {
-        mode: "no-cors",
-      });
+      const data = await fetch("http://localhost:5000/api/products");
       const response = await data.json();
 
       dispatch({ type: "FETCH_PRODUCTS", payload: response });
@@ -31,10 +29,12 @@ function GeneralContextProvider({ children }) {
       dispatch({ type: "ERROR", payload: true });
     }
   };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
-    <GeneralContext.Provider value={{ ...state, opnenMenu, fetchProducts }}>
-      {children}
-    </GeneralContext.Provider>
+    <GeneralContext.Provider value={{ ...state, opnenMenu }}>{children}</GeneralContext.Provider>
   );
 }
 
