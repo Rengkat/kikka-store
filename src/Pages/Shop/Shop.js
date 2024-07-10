@@ -6,18 +6,19 @@ import { BreedingRhombusSpinner } from "react-epic-spinners";
 
 function Shop() {
   const { products } = useContext(GeneralContext);
+  const mainProducts = products?.products;
   const [loading, setLoading] = useState(false);
   const [categorisedProducts, setCategorisedProducts] = useState([]);
   const [categories, setCategories] = useState(["all"]);
-  console.log(products);
-
   const handleFilter = (category) => {
     setCategorisedProducts(
-      category === "all" ? products : products.filter((product) => product.category === category)
+      category === "all"
+        ? mainProducts
+        : mainProducts.filter((product) => product.category === category)
     );
   };
   useEffect(() => {
-    const uniqueCategories = ["all", ...new Set(products.map((product) => product.category))];
+    const uniqueCategories = ["all", ...new Set(mainProducts.map((product) => product.category))];
     setCategories(uniqueCategories);
   }, []);
 
@@ -42,9 +43,9 @@ function Shop() {
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-10 mx-auto gap-5 md:gap-8">
-          {categorisedProducts.map((product) => {
+          {categorisedProducts?.map((product) => {
             return (
-              <main key={product.id} className="shadow p-3 hover:shadow-lg border-2">
+              <main key={product._id} className="shadow p-3 hover:shadow-lg border-2">
                 <Products product={product} />
               </main>
             );

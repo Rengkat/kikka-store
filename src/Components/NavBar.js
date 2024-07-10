@@ -32,7 +32,7 @@ function NavBar() {
   const { opnenMenu, isOpnenMenu } = useContext(GeneralContext);
   const { user } = useAuthContext();
   const handleLogout = async () => {
-    const response = await fetch("http://localhost:5000/api/user/login", {
+    const response = await fetch("http://localhost:5000/api/users/logout", {
       method: "POST",
     });
     const res = response.json();
@@ -130,7 +130,7 @@ function NavBar() {
                   onClick={() => setIsOpen((prev) => !prev)}
                   className=" text-3xl text-yellow-700 cursor-pointer hidden md:block"
                 />
-                {user.firstName}
+                {user && user?.firstName}
               </div>
               {isOpen && (
                 <div className="absolute -translate-x-[30%] top-[110%] w-[10rem] border-[1px] border-yellow-600 p-2 z-20 bg-white rounded shadow">

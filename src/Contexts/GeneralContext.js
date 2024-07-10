@@ -21,7 +21,7 @@ function GeneralContextProvider({ children }) {
     try {
       const data = await fetch("http://localhost:5000/api/products");
       const response = await data.json();
-
+      console.log(response);
       dispatch({ type: "FETCH_PRODUCTS", payload: response });
       dispatch({ type: "ERROR", payload: false });
       dispatch({ type: "LOADING", payload: false });
