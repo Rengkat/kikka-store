@@ -20,12 +20,13 @@ const rating = (price) => {
 };
 
 function Products({ product }) {
-  const { name, image, price, id } = product;
+  console.log(product);
+  const { name, image, price, _id } = product;
 
   return (
     <div>
       <div className="text-center">
-        <Link to={`/singleProduct/${id}`}>
+        <Link to={`/singleProduct/${_id}`}>
           <img
             src={image}
             alt={`${name} Image`}

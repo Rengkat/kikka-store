@@ -14,11 +14,11 @@ function Shop() {
     setCategorisedProducts(
       category === "all"
         ? mainProducts
-        : mainProducts.filter((product) => product.category === category)
+        : mainProducts?.filter((product) => product.category === category)
     );
   };
   useEffect(() => {
-    const uniqueCategories = ["all", ...new Set(mainProducts.map((product) => product.category))];
+    const uniqueCategories = ["all", ...new Set(mainProducts?.map((product) => product.category))];
     setCategories(uniqueCategories);
   }, []);
 

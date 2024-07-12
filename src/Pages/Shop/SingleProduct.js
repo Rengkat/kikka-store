@@ -32,7 +32,7 @@ function SingleProduct() {
   const { addToCart, addToWishList, selectedImage, isSelected } = useContext(SingleProductContext);
   console.log(isSelected);
   const fetchProduct = async () => {
-    const data = await fetch(`https://course-api.com/react-store-single-product?id=${productId}`);
+    const data = await fetch(`http://localhost:5000/api/products/${productId}`);
     const response = await data.json();
     setProduct(response);
   };
