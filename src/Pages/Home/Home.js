@@ -7,19 +7,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function Home() {
-  const [products, setProducts] = useState([]);
-  const featureProducts = products?.filter((featureProduct) => featureProduct.featured);
-  const firstFour = featureProducts.slice(0, 4);
-  const secondFour = featureProducts.slice(4, 8);
-  useEffect(() => {
-    const fetchData = async () => {
-      // setLoading(true);
-      const data = await fetch("https://course-api.com/react-store-products");
-      const response = await data.json();
-      setProducts(response);
-    };
-    fetchData();
-  }, []);
+  const { products } = useContext(GeneralContext);
+  const productsArray = products?.products;
+  const firstFour = productsArray?.slice(0, 4);
+  const secondFour = productsArray?.slice(4, 8);
+
   return (
     <div>
       <Hero />
