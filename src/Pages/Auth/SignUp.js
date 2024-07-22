@@ -35,9 +35,8 @@ const SignUp = () => {
       setErrMessage("Please enter all fields");
     } else {
       if (userDetails.password === confirmPassword) {
-        console.log(userDetails);
         try {
-          const res = await fetch("http://localhost:5000/api/user/register", {
+          const res = await fetch("http://localhost:5000/api/users/register", {
             method: "POST",
             headers: {
               "Content-type": "application/json",

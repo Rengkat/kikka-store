@@ -1,20 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SingleProductContext } from "../Contexts/SingleContext";
 import { Link } from "react-router-dom";
 import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
+import { CartContext } from "../Contexts/CartContex";
 
 function Cart() {
-  const { cart, removeFromCart, clearCart, increaseQuanity, decreaseQuanity } =
-    useContext(SingleProductContext);
-  console.log(cart);
+  const { cartItems, deleteProductFromCart, updateQuantity, clearCart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
   const shipping = ["Local", "International"];
   const [shippingOp, setShippingOpt] = useState("");
   useEffect(() => {
-    setTotal(cart.reduce((acc, curr) => acc + Number(curr.price) * Number(curr.quantity), 0));
-  }, [cart]);
+    setTotal(
+      cartItems.cart.reduce(
+        (acc, curr) => acc + Number(curr?.product?.price) * Number(curr.quantity),
+        0
+      )
+    );
+  }, [cartItems]);
 
-  if (cart.length === 0) {
+  if (cartItems?.cart.length === 0) {
     return (
       <div className="text-center my-[20rem]">
         <h1 className=" md:text-2xl font-semibold">
@@ -31,49 +34,57 @@ function Cart() {
   return (
     <div className="mb-[10rem] w-[100%] md:w-[80%] mx-auto justify-between  flex flex-col md:flex-row">
       <div className=" w-[95%] md:w-[60%] space-x-5 md:h-[60%] mx-auto">
-        {cart.map((item) => {
-          return (
-            <main
-              key={item.id}
-              className="flex justify-between items-center my-5 shadow-sm rounded-md p-5 border-2 border-gray-100">
-              <div className="flex space-x-5">
-                <img
-                  src={item && item?.images[0].url}
-                  alt="Image"
-                  className=" object-cover h-28 w-36 md:h-36 md:w-56"
-                />
-                <div className="info">
-                  <h1 className=" md:text-xl font-semibold capitalize">{item.name}</h1>
-                  <h1 className=" md:text-xl font-semibold text-yellow-700">
-                    ${(item.price * item.quantity).toLocaleString()}
-                  </h1>
-                  <h1 className=" md:text-xl   capitalize">Brand: {item.company}</h1>
-                  <div className="flex space-x-2 md:space-x-3 items-end mt-4 md:mt-9 md:text-xl">
-                    <button
-                      onClick={() => decreaseQuanity(item.id)}
-                      className=" font-bold text-yellow-700 shadow p-2 border-1 rounded-md  ">
-                      <FaMinus />
-                    </button>
-                    <h3 className="text-2xl ">{item.quantity}</h3>
-                    {/* {console.log(item.id)} */}
+        {cartItems.loading ? (
+          <div>Loading...</div>
+        ) : (
+          cartItems?.cart?.map((item) => {
+            return (
+              <main
+                key={item._id}
+                className="flex justify-between items-center my-5 shadow-sm rounded-md p-5 border-2 border-gray-100">
+                <div className="flex space-x-5">
+                  <img
+                    src={item.product?.image}
+                    alt="Image"
+                    className=" object-cover h-28 w-36 md:h-36 md:w-56"
+                  />
+                  <div className="info">
+                    <h1 className=" md:text-xl font-semibold capitalize">{item?.product?.name}</h1>
+                    <h1 className=" md:text-xl font-semibold text-yellow-700">
+                      ${(item?.product?.price * item?.product?.quantity).toLocaleString()}
+                    </h1>
+                    <h1 className=" md:text-xl   capitalize">Brand: {item?.product?.brand}</h1>
+                    <div className="flex space-x-2 md:space-x-3 items-end mt-4 md:mt-9 md:text-xl">
+                      <button
+                        onClick={() =>
+                          updateQuantity({ productId: item?._id, quantity: item?.quantity - 1 })
+                        }
+                        className=" font-bold text-yellow-700 shadow p-2 border-1 rounded-md  ">
+                        <FaMinus />
+                      </button>
+                      <h3 className="text-2xl ">{item?.quantity}</h3>
+                      {/* {console.log(item.id)} */}
 
-                    <button
-                      onClick={() => increaseQuanity(item.id)}
-                      className=" font-bold text-yellow-700 shadow p-2 border-1 rounded-md  ">
-                      <FaPlus />
-                    </button>
+                      <button
+                        onClick={() =>
+                          updateQuantity({ productId: item?._id, quantity: item.quantity + 1 })
+                        }
+                        className=" font-bold text-yellow-700 shadow p-2 border-1 rounded-md  ">
+                        <FaPlus />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="close md:p-7 ">
-                <FaTrash
-                  onClick={() => removeFromCart(item.id)}
-                  className="cursor-pointer text-yellow-700"
-                />
-              </div>
-            </main>
-          );
-        })}
+                <div className="close md:p-7 ">
+                  <FaTrash
+                    onClick={() => deleteProductFromCart(item?._id)}
+                    className="cursor-pointer text-yellow-700"
+                  />
+                </div>
+              </main>
+            );
+          })
+        )}
       </div>
       <div className="w-[95%] md:w-[35%] mt-5 mx-auto">
         <div className=" border-2 border-gray-200 rounded-md pb-10">

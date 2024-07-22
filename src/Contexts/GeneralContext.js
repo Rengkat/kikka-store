@@ -3,7 +3,7 @@ import GeneralReducer from "../Components/Reducers/GeneralReducer";
 import { addUserToLocalStorage, getUserFromLocalStorage } from "./localStorage";
 
 export const GeneralContext = createContext();
-const initaialState = {
+const initialState = {
   isOpnenMenu: true,
   loading: true,
   error: false,
@@ -11,7 +11,7 @@ const initaialState = {
 };
 
 function GeneralContextProvider({ children }) {
-  const [state, dispatch] = useReducer(GeneralReducer, initaialState);
+  const [state, dispatch] = useReducer(GeneralReducer, initialState);
   const opnenMenu = () => {
     dispatch({ type: "OPEN_MENU" });
   };
@@ -21,7 +21,6 @@ function GeneralContextProvider({ children }) {
     try {
       const data = await fetch("http://localhost:5000/api/products");
       const response = await data.json();
-      console.log(response);
       dispatch({ type: "FETCH_PRODUCTS", payload: response });
       dispatch({ type: "ERROR", payload: false });
       dispatch({ type: "LOADING", payload: false });

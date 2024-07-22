@@ -7,7 +7,7 @@ import { addUserToLocalStorage, getUserFromLocalStorage } from "../../Contexts/l
 
 const Login = () => {
   const { dispatch, user } = useAuthContext();
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
@@ -16,7 +16,7 @@ const Login = () => {
     if (email === "" || password === "") {
       setErr(true);
     }
-    const res = await fetch("http://localhost:5000/api/user/login", {
+    const res = await fetch("http://localhost:5000/api/users/login", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -34,6 +34,7 @@ const Login = () => {
 
       dispatch({ type: "SUCCESSFUL_LOGIN", payload: user });
       addUserToLocalStorage(user);
+      navigate("/");
     }
     dispatch({ type: "FAILED_LOGIN", payload: response });
 

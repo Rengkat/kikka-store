@@ -20,7 +20,6 @@ const rating = (price) => {
 };
 
 function Products({ product }) {
-  console.log(product);
   const { name, image, price, _id } = product;
 
   return (

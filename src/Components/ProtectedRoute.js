@@ -5,8 +5,6 @@ import { getUserFromLocalStorage } from "../Contexts/localStorage";
 
 const ProtectedRoute = ({ children }) => {
   const user = getUserFromLocalStorage();
-  console.log(user);
-  // const { user } = useContext(GeneralContext);
   if (!user) {
     return <Navigate to="/login" />;
   }

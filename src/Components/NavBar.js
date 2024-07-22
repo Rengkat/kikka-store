@@ -7,9 +7,10 @@ import { GiShoppingBag, GiHamburgerMenu } from "react-icons/gi";
 import { BiMenuAltRight, BiLogOutCircle } from "react-icons/bi";
 import { useContext, useState } from "react";
 import { GeneralContext } from "../Contexts/GeneralContext";
-import { SingleProductContext } from "../Contexts/SingleContext";
-import { getUserFromLocalStorage, removeUserFromLocalStorage } from "../Contexts/localStorage";
+import { removeUserFromLocalStorage } from "../Contexts/localStorage";
 import useAuthContext from "../CustomeHooks/useAuthContext";
+import { CartContext } from "../Contexts/CartContex";
+import { WishlistContext } from "../Contexts/WishlistContext";
 
 // STYLES/////////////
 const isOpenMenu =
@@ -25,10 +26,10 @@ const box =
 // ............FUNCTION....................
 function NavBar() {
   const navigate = useNavigate();
-  const { cart, wishlist } = useContext(SingleProductContext);
+  const { savedItems } = useContext(WishlistContext);
+  const { cartItems } = useContext(CartContext);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
-
   const { opnenMenu, isOpnenMenu } = useContext(GeneralContext);
   const { user } = useAuthContext();
   const handleLogout = async () => {
@@ -115,20 +116,20 @@ function NavBar() {
             <Link to="/cart" className="relative">
               <GiShoppingBag fontSize={30} className="text-yellow-700 hover:opacity-75" />
               <div className={box}>
-                <h1>{cart?.length}</h1>
+                <h1>{cartItems?.cart?.length}</h1>
               </div>
             </Link>
             <Link to="/wishlist" className="relative">
               <FaRegHeart fontSize={30} className="text-yellow-700 hover:opacity-75" />
               <div className={box}>
-                <h1>{wishlist?.length}</h1>
+                <h1>{savedItems?.saved.length}</h1>
               </div>
             </Link>
             <div className="relative">
               <div className="flex items-end lg:gap-2">
                 <FaUserAlt
                   onClick={() => setIsOpen((prev) => !prev)}
-                  className=" text-3xl text-yellow-700 cursor-pointer hidden md:block"
+                  className="font-bold text-3xl text-yellow-700 cursor-pointer hidden md:block"
                 />
                 {user && user?.firstName}
               </div>

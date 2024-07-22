@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { SingleProductContext } from "../Contexts/SingleContext";
 
 import { FaTrash } from "react-icons/fa";
+import { WishlistContext } from "../Contexts/WishlistContext";
 function Wishlist() {
-  const { wishlist, removeFromWishlist, clearWishlist } =
-    useContext(SingleProductContext);
-
+  const { savedItems, deleteProductFromWishlist, clearWishlist } = useContext(WishlistContext);
+  const wishlist = savedItems.saved;
   if (wishlist.length === 0) {
     return (
       <div className="text-center my-[20rem]">
@@ -28,28 +28,26 @@ function Wishlist() {
         {wishlist.map((item) => {
           return (
             <main
-              key={item.id}
+              key={item._id}
               className="flex justify-between items-center my-5 shadow-sm rounded-md p-2 md:p-5 border-2 border-gray-100">
               <div className="flex space-x-5">
                 <img
-                  src={item.image || item?.images[0].url}
+                  src={item?.product?.image}
                   alt="Image"
                   className=" object-cover h-28 w-36 md:h-36 md:w-56"
                 />
                 <div className="info">
-                  <h1 className=" md:text-xl font-semibold capitalize">
-                    {item.name}
-                  </h1>
+                  <h1 className=" md:text-xl font-semibold capitalize">{item?.product?.name}</h1>
                   <h1 className="md:text-xl font-semibold text-yellow-700">
-                    ${item.price.toLocaleString()}
+                    ${item?.product?.price.toLocaleString()}
                   </h1>
 
-                  <h1 className="  capitalize">Company: {item.company}</h1>
+                  <h1 className="  capitalize">Company: {item?.product?.brand}</h1>
                 </div>
               </div>
               <div className="close p-5 md:p-7 ">
                 <FaTrash
-                  onClick={() => removeFromWishlist(item.id)}
+                  onClick={() => deleteProductFromWishlist(item._id)}
                   className="cursor-pointer text-yellow-700"
                 />
               </div>
