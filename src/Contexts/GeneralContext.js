@@ -19,7 +19,7 @@ function GeneralContextProvider({ children }) {
   const fetchProducts = async () => {
     dispatch({ type: "LOADING", payload: true });
     try {
-      const data = await fetch("http://localhost:5000/api/products");
+      const data = await fetch("https://building-backend.onrender.com/api/products");
       const response = await data.json();
       dispatch({ type: "FETCH_PRODUCTS", payload: response });
       dispatch({ type: "ERROR", payload: false });

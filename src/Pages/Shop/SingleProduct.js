@@ -15,7 +15,7 @@ function SingleProduct() {
   const { addToWishlist } = useContext(WishlistContext);
   const fetchProduct = async () => {
     setisLoading(true);
-    const data = await fetch(`http://localhost:5000/api/products/${productId}`);
+    const data = await fetch(`https://building-backend.onrender.com/api/products/${productId}`);
     const response = await data.json();
     setProduct(response?.product);
     setisLoading(false);

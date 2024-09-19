@@ -33,7 +33,7 @@ const WishlistContextProvider = ({ children }) => {
     dispatch({ type: "FETCH_LOADING_SAVED_PRODUCT", payload: true });
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/saveItems", {
+      const res = await fetch("https://building-backend.onrender.com/api/user/saveItems", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const WishlistContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/saveItems", {
+      const res = await fetch("https://building-backend.onrender.com/api/user/saveItems", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const WishlistContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/saveItems/delete`, {
+      const res = await fetch(`https://building-backend.onrender.com/api/user/saveItems/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -106,13 +106,16 @@ const WishlistContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/saveItems/deleteAll`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        `https://building-backend.onrender.com/api/user/saveItems/deleteAll`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.ok) {
         await fetchWishlist();

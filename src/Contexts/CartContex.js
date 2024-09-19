@@ -33,7 +33,7 @@ const CartContextProvider = ({ children }) => {
     dispatch({ type: "FETCH_LOADING_CART", payload: true });
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/cart", {
+      const res = await fetch("https://building-backend.onrender.com/api/user/cart", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const CartContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/cart", {
+      const res = await fetch("https://building-backend.onrender.com/api/user/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const CartContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/cart/delete`, {
+      const res = await fetch(`https://building-backend.onrender.com/api/user/cart/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -107,14 +107,17 @@ const CartContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/cart/updateQuantity`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ productId, quantity }),
-      });
+      const res = await fetch(
+        `https://building-backend.onrender.com/api/user/cart/updateQuantity`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ productId, quantity }),
+        }
+      );
 
       if (res.ok) {
         await fetchCart();
@@ -132,7 +135,7 @@ const CartContextProvider = ({ children }) => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/cart/deleteAll`, {
+      const res = await fetch(`https://building-backend.onrender.com/api/user/cart/deleteAll`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
