@@ -16,7 +16,7 @@ const Login = () => {
     if (email === "" || password === "") {
       setErr(true);
     }
-    const res = await fetch("http://localhost:5000/api/users/login", {
+    const res = await fetch("https://building-backend.onrender.com/api/users/login", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

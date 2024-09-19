@@ -36,7 +36,7 @@ const SignUp = () => {
     } else {
       if (userDetails.password === confirmPassword) {
         try {
-          const res = await fetch("http://localhost:5000/api/users/register", {
+          const res = await fetch("https://building-backend.onrender.com/api/users/register", {
             method: "POST",
             headers: {
               "Content-type": "application/json",
